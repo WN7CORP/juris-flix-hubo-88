@@ -15,6 +15,7 @@ import { AssistenteIA } from '@/components/AssistenteIA';
 import { BibliotecaClassicos } from '@/components/BibliotecaClassicos';
 import { Loja } from '@/components/Loja';
 import { RatingCard } from '@/components/RatingCard';
+import { PremiumTimerWrapper } from '@/components/PremiumTimerWrapper';
 import { useEffect, useState } from 'react';
 
 export const AppFunction = () => {
@@ -48,6 +49,19 @@ export const AppFunction = () => {
     );
   }
 
+  // Lista de funções premium que precisam do timer
+  const premiumFunctions = [
+    'Assistente IA Jurídica Premium',
+    'Plataforma Desktop Premium', 
+    'Biblioteca de Clássicos',
+    'Mapas Mentais',
+    'Banco de Questões',
+    'Cursos'
+  ];
+
+  // Verificar se a função atual é premium
+  const isPremiumFunction = premiumFunctions.includes(currentFunction);
+
   // Componentes específicos para funções customizadas (sempre prioritários)
   const renderSpecificComponent = () => {
     console.log('AppFunction - renderSpecificComponent para:', currentFunction);
@@ -73,8 +87,47 @@ export const AppFunction = () => {
       case 'Assistente IA Jurídica':
       case 'Assistente IA':
         return <AssistenteIA />;
+      
+      // Funções Premium com Timer
       case 'Biblioteca de Clássicos':
-        return <BibliotecaClassicos />;
+        return (
+          <PremiumTimerWrapper functionName="Biblioteca de Clássicos">
+            <BibliotecaClassicos />
+          </PremiumTimerWrapper>
+        );
+      case 'Mapas Mentais':
+        return (
+          <PremiumTimerWrapper functionName="Mapas Mentais">
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center p-8">
+                <h2 className="text-2xl font-bold mb-4 gradient-text">Mapas Mentais</h2>
+                <p className="text-muted-foreground">Organize suas ideias jurídicas de forma visual</p>
+              </div>
+            </div>
+          </PremiumTimerWrapper>
+        );
+      case 'Banco de Questões':
+        return (
+          <PremiumTimerWrapper functionName="Banco de Questões">
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center p-8">
+                <h2 className="text-2xl font-bold mb-4 gradient-text">Banco de Questões</h2>
+                <p className="text-muted-foreground">Milhares de questões para concursos públicos</p>
+              </div>
+            </div>
+          </PremiumTimerWrapper>
+        );
+      case 'Cursos':
+        return (
+          <PremiumTimerWrapper functionName="Cursos">
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center p-8">
+                <h2 className="text-2xl font-bold mb-4 gradient-text">Cursos</h2>
+                <p className="text-muted-foreground">Cursos preparatórios especializados</p>
+              </div>
+            </div>
+          </PremiumTimerWrapper>
+        );
       case 'Dashboard':
         return (
           <div className="flex items-center justify-center h-full">
@@ -149,9 +202,9 @@ export const AppFunction = () => {
     );
   }
 
-  // Para "Assistente IA Premium", usar o link específico fornecido
-  if (currentFunction === 'Assistente IA Premium') {
-    console.log('AppFunction - Renderizando iframe para Assistente IA Premium');
+  // Para funções premium com timer - iframe com timer
+  if (currentFunction === 'Assistente IA Jurídica Premium') {
+    console.log('AppFunction - Renderizando iframe com timer para Assistente IA Jurídica Premium');
     
     return (
       <>
@@ -170,7 +223,7 @@ export const AppFunction = () => {
                 </Button>
                 <div>
                   <h1 className="text-lg sm:text-xl font-bold gradient-text">
-                    Assistente IA Premium
+                    Assistente IA Jurídica Premium
                   </h1>
                   <p className="text-xs sm:text-sm text-muted-foreground">
                     Inteligência Artificial Jurídica Avançada
@@ -180,15 +233,65 @@ export const AppFunction = () => {
             </div>
           </header>
 
-          {/* WebView Content */}
+          {/* WebView Content with Premium Timer */}
           <main className="pt-16 sm:pt-20 h-screen">
-            <iframe 
-              src="https://enchanted-pricey-walkover.glitch.me" 
-              className="w-full h-full border-0" 
-              title="Assistente IA Premium"
-              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
-              loading="lazy"
-            />
+            <PremiumTimerWrapper functionName="Assistente IA Jurídica Premium">
+              <iframe 
+                src="https://enchanted-pricey-walkover.glitch.me" 
+                className="w-full h-full border-0" 
+                title="Assistente IA Jurídica Premium"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+                loading="lazy"
+              />
+            </PremiumTimerWrapper>
+          </main>
+        </div>
+      </>
+    );
+  }
+
+  // Para "Plataforma Desktop Premium" - iframe com timer  
+  if (currentFunction === 'Plataforma Desktop Premium') {
+    console.log('AppFunction - Renderizando iframe com timer para Plataforma Desktop Premium');
+    
+    return (
+      <>
+        <div className="min-h-screen bg-background">
+          {/* Header with back button */}
+          <header className="fixed top-0 left-0 right-0 z-40 glass-effect border-b border-border/30">
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 sm:py-4 py-[10px]">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={handleBack} 
+                  className="text-foreground hover:bg-red-500/10 hover:text-red-400 transition-all duration-300 hover:scale-110 h-8 w-8 sm:h-10 sm:w-10"
+                >
+                  <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
+                <div>
+                  <h1 className="text-lg sm:text-xl font-bold gradient-text">
+                    Plataforma Desktop Premium
+                  </h1>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    Versão completa para desktop
+                  </p>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          {/* WebView Content with Premium Timer */}
+          <main className="pt-16 sm:pt-20 h-screen">
+            <PremiumTimerWrapper functionName="Plataforma Desktop Premium">
+              <iframe 
+                src={functionData?.link || "https://enchanted-pricey-walkover.glitch.me"} 
+                className="w-full h-full border-0" 
+                title="Plataforma Desktop Premium"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+                loading="lazy"
+              />
+            </PremiumTimerWrapper>
           </main>
         </div>
       </>

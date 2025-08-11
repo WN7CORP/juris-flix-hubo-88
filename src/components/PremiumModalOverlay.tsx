@@ -2,37 +2,30 @@ import { Crown, Lock, Star, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
-const detectDevice = () => {
-  const userAgent = navigator.userAgent.toLowerCase();
-  if (/android/.test(userAgent)) return 'android';
-  if (/iphone|ipad|ipod/.test(userAgent)) return 'ios';
-  return 'web';
-};
-
 const handlePremiumUpgrade = () => {
   window.open('https://direito-360-prem.vercel.app/', '_blank');
 };
 
-interface PremiumRequiredProps {
+interface PremiumModalOverlayProps {
   functionName: string;
 }
 
-export const PremiumRequired = ({ functionName }: PremiumRequiredProps) => {
+export const PremiumModalOverlay = ({ functionName }: PremiumModalOverlayProps) => {
   return (
-    <div className="flex items-center justify-center min-h-[60vh] p-4">
-      <Card className="max-w-md w-full text-center bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border-amber-200 dark:border-amber-800">
+    <div className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-md flex items-center justify-center p-4">
+      <Card className="max-w-md w-full text-center bg-gradient-to-br from-premium-primary/10 to-premium-accent/10 border-premium-primary dark:border-premium-accent animate-fade-in">
         <CardContent className="pt-8 pb-8">
           <div className="space-y-6">
             {/* Icon */}
             <div className="flex justify-center">
-              <div className="p-4 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20">
-                <Lock className="w-12 h-12 text-amber-600 dark:text-amber-400" />
+              <div className="p-4 rounded-full bg-gradient-to-r from-premium-primary/20 to-premium-accent/20 animate-premium-glow">
+                <Lock className="w-12 h-12 text-premium-primary dark:text-premium-accent" />
               </div>
             </div>
             
             {/* Title */}
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+              <h2 className="text-2xl font-bold text-premium-primary dark:text-premium-accent">
                 Recurso Premium
               </h2>
               <p className="text-muted-foreground">
@@ -43,22 +36,22 @@ export const PremiumRequired = ({ functionName }: PremiumRequiredProps) => {
             {/* Benefits */}
             <div className="space-y-3 text-left">
               <div className="flex items-center gap-3">
-                <Crown className="w-4 h-4 text-amber-500" />
+                <Crown className="w-4 h-4 text-premium-accent" />
                 <span className="text-sm">Acesso completo à plataforma</span>
               </div>
               <div className="flex items-center gap-3">
-                <Star className="w-4 h-4 text-amber-500" />
+                <Star className="w-4 h-4 text-premium-accent" />
                 <span className="text-sm">Experiência sem anúncios</span>
               </div>
               <div className="flex items-center gap-3">
-                <Zap className="w-4 h-4 text-amber-500" />
+                <Zap className="w-4 h-4 text-premium-accent" />
                 <span className="text-sm">Recursos exclusivos</span>
               </div>
             </div>
             
             {/* Price */}
-            <div className="bg-amber-50 dark:bg-amber-950/50 rounded-lg p-4 space-y-2">
-              <div className="text-3xl font-bold text-amber-600 dark:text-amber-400">
+            <div className="bg-premium-primary/10 dark:bg-premium-accent/10 rounded-lg p-4 space-y-2">
+              <div className="text-3xl font-bold text-premium-primary dark:text-premium-accent">
                 R$ 39,90
               </div>
               <div className="text-sm text-muted-foreground">
@@ -69,7 +62,7 @@ export const PremiumRequired = ({ functionName }: PremiumRequiredProps) => {
             {/* CTA Button */}
             <Button 
               onClick={handlePremiumUpgrade}
-              className="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-semibold"
+              className="w-full bg-gradient-to-r from-premium-primary to-premium-accent hover:from-premium-primary/90 hover:to-premium-accent/90 text-white font-semibold animate-premium-glow"
               size="lg"
             >
               <Crown className="w-4 h-4 mr-2" />
@@ -77,7 +70,7 @@ export const PremiumRequired = ({ functionName }: PremiumRequiredProps) => {
             </Button>
             
             <p className="text-xs text-muted-foreground">
-              Disponível na Google Play Store e App Store
+              Redirecionamento para página de pagamento
             </p>
           </div>
         </CardContent>
