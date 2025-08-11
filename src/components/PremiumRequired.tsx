@@ -1,6 +1,7 @@
 import { Crown, Lock, Star, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import logoDireito from '@/assets/logo-direito.png';
 
 const detectDevice = () => {
   const userAgent = navigator.userAgent.toLowerCase();
@@ -10,7 +11,13 @@ const detectDevice = () => {
 };
 
 const handlePremiumUpgrade = () => {
-  window.open('https://direito-360-prem.vercel.app/', '_blank');
+  const device = detectDevice();
+  
+  if (device === 'android') {
+    window.open('https://play.google.com/store/apps/details?id=gpub492f9e6db037057aaa93d7adfa9e3e0', '_blank');
+  } else {
+    window.open('https://direito-360-prem.vercel.app/', '_blank');
+  }
 };
 
 interface PremiumRequiredProps {
@@ -23,11 +30,13 @@ export const PremiumRequired = ({ functionName }: PremiumRequiredProps) => {
       <Card className="max-w-md w-full text-center bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border-amber-200 dark:border-amber-800">
         <CardContent className="pt-8 pb-8">
           <div className="space-y-6">
-            {/* Icon */}
+            {/* Logo */}
             <div className="flex justify-center">
-              <div className="p-4 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20">
-                <Lock className="w-12 h-12 text-amber-600 dark:text-amber-400" />
-              </div>
+              <img 
+                src={logoDireito} 
+                alt="Direito Logo" 
+                className="w-20 h-20 object-contain"
+              />
             </div>
             
             {/* Title */}

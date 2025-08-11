@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Download, ExternalLink, BookOpen, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PremiumRequired } from './PremiumRequired';
 
 interface BookCardProps {
   book: {
@@ -24,6 +25,7 @@ interface BookCardProps {
 
 export const BookCard = ({ book, areaColor, getProfessionLogo, showAreaBadge = false }: BookCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const handleCardClick = () => {
     setShowDetails(true);
@@ -32,6 +34,11 @@ export const BookCard = ({ book, areaColor, getProfessionLogo, showAreaBadge = f
   const handleCloseDetails = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowDetails(false);
+  };
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowPremiumModal(true);
   };
 
   return (
@@ -111,25 +118,16 @@ export const BookCard = ({ book, areaColor, getProfessionLogo, showAreaBadge = f
                   )}
                 </div>
 
-                {/* Botão de download */}
+                {/* Botão de download com premium */}
                 <div className="flex justify-end">
                   {book.download && (
                     <Button 
-                      asChild 
                       size="sm"
                       className="h-8 text-xs"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={handleDownloadClick}
                     >
-                      <a 
-                        href={book.download} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1"
-                      >
-                        <Download className="h-3 w-3" />
-                        Baixar
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
+                      <Download className="h-3 w-3 mr-1" />
+                      Baixar
                     </Button>
                   )}
                 </div>
@@ -231,22 +229,14 @@ export const BookCard = ({ book, areaColor, getProfessionLogo, showAreaBadge = f
                       </div>
                     )}
 
-                    {/* Botão de download */}
+                    {/* Botão de download com premium */}
                     {book.download && (
                       <Button 
-                        asChild 
                         className="w-full"
+                        onClick={handleDownloadClick}
                       >
-                        <a 
-                          href={book.download} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <Download className="h-4 w-4" />
-                          Baixar Livro
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
+                        <Download className="h-4 w-4 mr-2" />
+                        Baixar Livro
                       </Button>
                     )}
                   </div>
@@ -256,6 +246,13 @@ export const BookCard = ({ book, areaColor, getProfessionLogo, showAreaBadge = f
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Modal Premium */}
+      {showPremiumModal && (
+        <div className="fixed inset-0 z-[9999]">
+          <PremiumRequired functionName="Download de Livros" />
+        </div>
+      )}
     </>
   );
 };

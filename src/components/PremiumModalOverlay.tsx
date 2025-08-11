@@ -1,9 +1,23 @@
 import { Crown, Lock, Star, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import logoDireito from '@/assets/logo-direito.png';
+
+const detectDevice = () => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  if (/android/.test(userAgent)) return 'android';
+  if (/iphone|ipad|ipod/.test(userAgent)) return 'ios';
+  return 'web';
+};
 
 const handlePremiumUpgrade = () => {
-  window.open('https://direito-360-prem.vercel.app/', '_blank');
+  const device = detectDevice();
+  
+  if (device === 'android') {
+    window.open('https://play.google.com/store/apps/details?id=gpub492f9e6db037057aaa93d7adfa9e3e0', '_blank');
+  } else {
+    window.open('https://direito-360-prem.vercel.app/', '_blank');
+  }
 };
 
 interface PremiumModalOverlayProps {
@@ -16,11 +30,13 @@ export const PremiumModalOverlay = ({ functionName }: PremiumModalOverlayProps) 
       <Card className="max-w-md w-full text-center bg-gradient-to-br from-premium-primary/10 to-premium-accent/10 border-premium-primary dark:border-premium-accent animate-fade-in">
         <CardContent className="pt-8 pb-8">
           <div className="space-y-6">
-            {/* Icon */}
+            {/* Logo */}
             <div className="flex justify-center">
-              <div className="p-4 rounded-full bg-gradient-to-r from-premium-primary/20 to-premium-accent/20 animate-premium-glow">
-                <Lock className="w-12 h-12 text-premium-primary dark:text-premium-accent" />
-              </div>
+              <img 
+                src={logoDireito} 
+                alt="Direito Logo" 
+                className="w-20 h-20 object-contain"
+              />
             </div>
             
             {/* Title */}

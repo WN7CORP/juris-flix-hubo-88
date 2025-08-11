@@ -22,8 +22,8 @@ export const PlataformaDesktop = () => {
     toast
   } = useToast();
 
-  // Liberado para todos os usuários
-  const isPremiumUser = true;
+  // Agora sempre mostra como premium required
+  const isPremiumUser = false;
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {

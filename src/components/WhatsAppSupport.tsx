@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
-import { X, Phone } from 'lucide-react';
+import { X } from 'lucide-react';
+import { PremiumRequired } from './PremiumRequired';
 
 const messageOptions = [
   {
@@ -32,12 +32,10 @@ const messageOptions = [
 
 export const WhatsAppSupport = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
-  const handleWhatsAppClick = (message: string) => {
-    const phoneNumber = '5511991897603'; // Formato internacional
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
+  const handleWhatsAppClick = () => {
+    setShowPremiumModal(true);
     setIsModalOpen(false);
   };
 
@@ -95,7 +93,7 @@ export const WhatsAppSupport = () => {
                 {messageOptions.map((option) => (
                   <button
                     key={option.id}
-                    onClick={() => handleWhatsAppClick(option.message)}
+                    onClick={handleWhatsAppClick}
                     className="w-full text-left p-4 border border-gray-200 rounded-xl hover:bg-[#25D366]/5 hover:border-[#25D366]/30 transition-all duration-200 group"
                   >
                     <div className="flex items-center gap-3">
@@ -131,6 +129,13 @@ export const WhatsAppSupport = () => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Modal Premium */}
+      {showPremiumModal && (
+        <div className="fixed inset-0 z-[9999]">
+          <PremiumRequired functionName="Conversar no WhatsApp" />
         </div>
       )}
     </>

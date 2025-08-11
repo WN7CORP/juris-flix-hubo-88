@@ -10,10 +10,10 @@ export const PremiumTimerWrapper = ({ children, functionName }: PremiumTimerWrap
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   useEffect(() => {
-    // Timer de 3 segundos para mostrar o modal premium
+    // Timer de 5 segundos para mostrar o modal premium
     const timer = setTimeout(() => {
       setShowPremiumModal(true);
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
