@@ -35,13 +35,17 @@ export const BibliotecaClassicos = () => {
 
   if (bibliotecaFunction?.link && bibliotecaFunction.link.trim() !== '') {
     return (
-      <div className="h-screen w-full">
+      <div className="h-screen w-full pb-4">
         <iframe 
           src={bibliotecaFunction.link} 
           className="w-full h-full border-0" 
           title="Biblioteca de Clássicos"
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
           loading="lazy"
+          style={{
+            height: 'calc(100vh - 80px)',
+            marginBottom: '20px'
+          }}
         />
       </div>
     );
