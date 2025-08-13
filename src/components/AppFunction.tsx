@@ -15,7 +15,7 @@ import { AssistenteIA } from '@/components/AssistenteIA';
 import { BibliotecaClassicos } from '@/components/BibliotecaClassicos';
 import { Loja } from '@/components/Loja';
 import { RatingCard } from '@/components/RatingCard';
-import { PremiumTimerWrapper } from '@/components/PremiumTimerWrapper';
+
 import { useEffect, useState } from 'react';
 
 export const AppFunction = () => {
@@ -56,18 +56,6 @@ export const AppFunction = () => {
     );
   }
 
-  // Lista de funções premium que precisam do timer
-  const premiumFunctions = [
-    'Assistente IA Jurídica Premium',
-    'Plataforma Desktop Premium', 
-    'Biblioteca de Clássicos',
-    'Mapas Mentais',
-    'Banco de Questões',
-    'Cursos'
-  ];
-
-  // Verificar se a função atual é premium
-  const isPremiumFunction = premiumFunctions.includes(currentFunction);
 
   // Componentes específicos para funções customizadas (sempre prioritários)
   const renderSpecificComponent = () => {
@@ -95,45 +83,35 @@ export const AppFunction = () => {
       case 'Assistente IA':
         return <AssistenteIA />;
       
-      // Funções Premium com Timer
+      // Funções sem restrições
       case 'Biblioteca de Clássicos':
-        return (
-          <PremiumTimerWrapper functionName="Biblioteca de Clássicos">
-            <BibliotecaClassicos />
-          </PremiumTimerWrapper>
-        );
+        return <BibliotecaClassicos />;
       case 'Mapas Mentais':
         return (
-          <PremiumTimerWrapper functionName="Mapas Mentais">
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center p-8">
-                <h2 className="text-2xl font-bold mb-4 gradient-text">Mapas Mentais</h2>
-                <p className="text-muted-foreground">Organize suas ideias jurídicas de forma visual</p>
-              </div>
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center p-8">
+              <h2 className="text-2xl font-bold mb-4 gradient-text">Mapas Mentais</h2>
+              <p className="text-muted-foreground">Organize suas ideias jurídicas de forma visual</p>
             </div>
-          </PremiumTimerWrapper>
+          </div>
         );
       case 'Banco de Questões':
         return (
-          <PremiumTimerWrapper functionName="Banco de Questões">
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center p-8">
-                <h2 className="text-2xl font-bold mb-4 gradient-text">Banco de Questões</h2>
-                <p className="text-muted-foreground">Milhares de questões para concursos públicos</p>
-              </div>
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center p-8">
+              <h2 className="text-2xl font-bold mb-4 gradient-text">Banco de Questões</h2>
+              <p className="text-muted-foreground">Milhares de questões para concursos públicos</p>
             </div>
-          </PremiumTimerWrapper>
+          </div>
         );
       case 'Cursos':
         return (
-          <PremiumTimerWrapper functionName="Cursos">
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center p-8">
-                <h2 className="text-2xl font-bold mb-4 gradient-text">Cursos</h2>
-                <p className="text-muted-foreground">Cursos preparatórios especializados</p>
-              </div>
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center p-8">
+              <h2 className="text-2xl font-bold mb-4 gradient-text">Cursos</h2>
+              <p className="text-muted-foreground">Cursos preparatórios especializados</p>
             </div>
-          </PremiumTimerWrapper>
+          </div>
         );
       case 'Dashboard':
         return (
@@ -209,9 +187,9 @@ export const AppFunction = () => {
     );
   }
 
-  // Para funções premium com timer - iframe com timer
+  // Para "Assistente IA Jurídica Premium" - iframe sem restrições
   if (currentFunction === 'Assistente IA Jurídica Premium') {
-    console.log('AppFunction - Renderizando iframe com timer para Assistente IA Jurídica Premium');
+    console.log('AppFunction - Renderizando iframe para Assistente IA Jurídica Premium');
     
     return (
       <>
@@ -240,26 +218,24 @@ export const AppFunction = () => {
             </div>
           </header>
 
-          {/* WebView Content with Premium Timer */}
+          {/* WebView Content */}
           <main className="pt-16 sm:pt-20 h-screen">
-            <PremiumTimerWrapper functionName="Assistente IA Jurídica Premium">
-              <iframe 
-                src="https://enchanted-pricey-walkover.glitch.me" 
-                className="w-full h-full border-0" 
-                title="Assistente IA Jurídica Premium"
-                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
-                loading="lazy"
-              />
-            </PremiumTimerWrapper>
+            <iframe 
+              src="https://enchanted-pricey-walkover.glitch.me" 
+              className="w-full h-full border-0" 
+              title="Assistente IA Jurídica Premium"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+              loading="lazy"
+            />
           </main>
         </div>
       </>
     );
   }
 
-  // Para "Plataforma Desktop Premium" - iframe com timer  
+  // Para "Plataforma Desktop Premium" - iframe sem restrições  
   if (currentFunction === 'Plataforma Desktop Premium') {
-    console.log('AppFunction - Renderizando iframe com timer para Plataforma Desktop Premium');
+    console.log('AppFunction - Renderizando iframe para Plataforma Desktop Premium');
     
     return (
       <>
@@ -288,17 +264,15 @@ export const AppFunction = () => {
             </div>
           </header>
 
-          {/* WebView Content with Premium Timer */}
+          {/* WebView Content */}
           <main className="pt-16 sm:pt-20 h-screen">
-            <PremiumTimerWrapper functionName="Plataforma Desktop Premium">
-              <iframe 
-                src={functionData?.link || "https://enchanted-pricey-walkover.glitch.me"} 
-                className="w-full h-full border-0" 
-                title="Plataforma Desktop Premium"
-                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
-                loading="lazy"
-              />
-            </PremiumTimerWrapper>
+            <iframe 
+              src={functionData?.link || "https://enchanted-pricey-walkover.glitch.me"} 
+              className="w-full h-full border-0" 
+              title="Plataforma Desktop Premium"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+              loading="lazy"
+            />
           </main>
         </div>
       </>
