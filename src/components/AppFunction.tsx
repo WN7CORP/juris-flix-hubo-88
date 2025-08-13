@@ -29,7 +29,14 @@ export const AppFunction = () => {
     
     if (currentFunction && functions.length > 0) {
       // Buscar função na base de dados
-      const func = functions.find(f => f.funcao === currentFunction);
+      let func = functions.find(f => f.funcao === currentFunction);
+      
+      // Tratamento especial para "Biblioteca de Habilidades Pessoais" 
+      // que deve usar o link da "Biblioteca de Poder Pessoal"
+      if (currentFunction === 'Biblioteca de Habilidades Pessoais') {
+        func = functions.find(f => f.funcao === 'Biblioteca de Poder Pessoal');
+      }
+      
       console.log('AppFunction - functionData encontrada:', func);
       setFunctionData(func || null);
     } else {
