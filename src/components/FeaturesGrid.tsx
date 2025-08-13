@@ -3,7 +3,8 @@ import { useAppFunctions } from '@/hooks/useAppFunctions';
 import { useNavigation } from '@/context/NavigationContext';
 import { ArrowRight, GitBranch, Scale, Bot, Headphones, Library, Monitor, Play, Folder, Newspaper, Film, Brain, BookOpen, FileText, Search, GraduationCap, Calendar, Clock, Award, Target, Bookmark, Download, Upload, Share, Heart, Star, Zap, Shield, Globe, Camera, Music, Video, Image, File, Archive, Code, Database, Hammer, ShoppingBag, Users, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 // Definição das categorias e suas funções
 const categoriesConfig = {
@@ -73,9 +74,43 @@ export const FeaturesGrid = () => {
     setCurrentFunction
   } = useNavigation();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [bibliotecaPoderLink, setBibliotecaPoderLink] = useState<string>('');
   
+  // Buscar link da Biblioteca de Poder Pessoal
+  useEffect(() => {
+    const fetchBibliotecaPoderLink = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('APP')
+          .select('link')
+          .eq('funcao', 'Biblioteca de Poder Pessoal')
+          .single();
+
+        if (error) {
+          console.error('Erro ao buscar link da Biblioteca de Poder Pessoal:', error);
+          return;
+        }
+
+        if (data?.link) {
+          setBibliotecaPoderLink(data.link);
+        }
+      } catch (err) {
+        console.error('Erro ao carregar link:', err);
+      }
+    };
+
+    fetchBibliotecaPoderLink();
+  }, []);
+
   const handleFunctionClick = (funcao: string) => {
     setCurrentFunction(funcao);
+  };
+
+  const handleBibliotecaHabilidades = () => {
+    if (bibliotecaPoderLink) {
+      window.open(bibliotecaPoderLink, '_blank');
+    }
+    setIsDialogOpen(false);
   };
 
   // Função para agrupar funções por categoria
@@ -171,6 +206,22 @@ export const FeaturesGrid = () => {
                     <div className="text-left">
                       <h3 className="text-lg font-semibold">Biblioteca de Clássicos</h3>
                       <p className="text-white/80 text-sm">Obras essenciais da cultura jurídica</p>
+                    </div>
+                  </div>
+                </button>
+
+                {/* Biblioteca de Habilidades Pessoais */}
+                <button
+                  onClick={handleBibliotecaHabilidades}
+                  className="group relative overflow-hidden bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white p-6 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
+                      <Brain className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold">Biblioteca de Habilidades Pessoais</h3>
+                      <p className="text-white/80 text-sm">Desenvolvimento pessoal e profissional</p>
                     </div>
                   </div>
                 </button>
