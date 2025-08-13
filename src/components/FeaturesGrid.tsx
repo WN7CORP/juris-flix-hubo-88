@@ -107,9 +107,7 @@ export const FeaturesGrid = () => {
   };
 
   const handleBibliotecaHabilidades = () => {
-    if (bibliotecaPoderLink) {
-      window.open(bibliotecaPoderLink, '_blank');
-    }
+    handleFunctionClick('Biblioteca de Habilidades Pessoais');
     setIsDialogOpen(false);
   };
 
